@@ -1,6 +1,6 @@
 const Course = require("../models/Course");
 const User = require("../models/User");
-const Tag = require("../models/Tags");
+const Category = require("../models/Category");
 const {uploadImage} = require('../utils/imageUploader');
 require("dotenv").config();
 exports.createCourse = async(req, res) => {
@@ -11,13 +11,13 @@ exports.createCourse = async(req, res) => {
     // url
     // create course entry in db
     // add course entry in schema
-    // add course entry in tag
+    // add course entry in category
     // return course
     try{
-        const {courseName, courseDescription, whatYouWillLearn, price, tag} = req.body;
+        const {courseName, courseDescription, whatYouWillLearn, price, category} = req.body;
         const thumbnail = req.files.thumbnail;
 
-        if(!thumbnail || !courseName || !courseDescription|| !whatYouWillLearn || !price || !tag){
+        if(!thumbnail || !courseName || !courseDescription|| !whatYouWillLearn || !price || !category){
             return res.status(400).json({
                 message: "Please fill all the fields",
                 status: false
@@ -35,11 +35,11 @@ exports.createCourse = async(req, res) => {
             })
         }
 
-        // check the given tag
-        const tagDetails = await Tag.findById(tag);
+        // check the given category
+        const tagDetails = await Category.findById(category);
         if(!tagDetails){
             return res.status(400).json({
-                message: "Tag not found",
+                message: "Category not found",
                 status: false
             })
         }
@@ -49,7 +49,7 @@ exports.createCourse = async(req, res) => {
             courseName,
             courseDescription,
             instructor: instructorDetails._id,
-            tag: tagDetails._id,
+            category: tagDetails._id,
             price,
             whatYouWillLearn,
             thumbnail: thumbnailImg.secure_url,
@@ -64,8 +64,8 @@ exports.createCourse = async(req, res) => {
             {new: true},
         );
 
-        // update tag schema
-        await Tag.findByIdAndUpdate(
+        // update category schema
+        await Category.findByIdAndUpdate(
             {_id: tagDetails._id},
             {$push: {
                 courses: newCourse._id,
