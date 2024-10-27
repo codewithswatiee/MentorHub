@@ -19,11 +19,11 @@ const router = express.Router();
 
 router.post("/createCourse", auth, isInstructor, createCourse);
 router.post("/addSection", auth, isInstructor, createSection);
-router.post("/updateSection", auth, isInstructor, updateSection);
-router.post("/deleteSection", auth, isInstructor, deleteSection);
-router.post("/updateSubSection", auth, isInstructor, updateSubSection)
+router.put("/updateSection", auth, isInstructor, updateSection);
+router.delete("/deleteSection", auth, isInstructor, deleteSection);
+router.put("/updateSubSection", auth, isInstructor, updateSubsection)
 // Delete Sub Section
-router.post("/deleteSubSection", auth, isInstructor, deleteSubSection)
+router.delete("/deleteSubSection", auth, isInstructor, deleteSubsection)
 // Add a Sub Section to a Section
 router.post("/addSubSection", auth, isInstructor, createSubSection)
 
@@ -31,7 +31,7 @@ router.post("/addSubSection", auth, isInstructor, createSubSection)
 // Get all Registered Courses
 router.get("/getAllCourses", getAllCourses)
 // Get Details for a Specific Courses
-router.post("/getCourseDetails", getCourseDetails)
+router.get("/getCourseDetails", getCourseDetails)
 
 
 // ********************************************************************************************************
