@@ -109,7 +109,7 @@ exports.signUp = async (req, res) => {
             if(otp != recentOtp){
                 return res.status(400).json({
                     success: false,
-                    message: "Invalif OTP"
+                    message: "Invalid OTP"
                 });
             }
 
@@ -129,7 +129,7 @@ exports.signUp = async (req, res) => {
                 contactNumber,
                 accountType,
                 additionalDetails: profileDetails._id,
-                image: `https://api.dicebear.com/9.x/<styleName>/svg?seed=${firstName} ${lastName}`
+                image: `https://api.dicebear.com/9.x/<styleName>/svg?seed=${firstName} ${lastName}`,
             })
 
             return res.status(200).json({
